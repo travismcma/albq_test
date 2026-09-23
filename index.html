@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Transit Schedule Display</title>
   <style>
     html, body {
@@ -9,12 +10,12 @@
       padding: 0;
       width: 100%;
       height: 100%;
-      overflow: hidden;
+      overflow: hidden; /* Prevents manual scrollbars */
       background-color: #ffffff;
       font-family: Calibri, sans-serif;
     }
 
-    /* Container for seamless signage scrolling */
+    /* Container that smoothly shifts upward */
     #scroll-container {
       position: absolute;
       top: 0;
@@ -23,19 +24,33 @@
       padding: 8px;
       box-sizing: border-box;
 
-      /* Smooth continuous motion suitable for MediaSignage HTML5 component */
-      animation: kioskScroll 16s ease-in-out infinite;
+      /* CSS Animation replaces JavaScript entirely */
+      animation: autoScrollKiosk 12s ease-in-out infinite;
     }
 
-    @keyframes kioskScroll {
-      0%, 25% { transform: translateY(0); }
-      50%, 75% { transform: translateY(-35%); }
-      100%     { transform: translateY(0); }
+    /* 
+      Keyframe Schedule (12s total cycle):
+      0% - 30%   : Stay at Top
+      50% - 80%  : Scroll smoothly to show bottom rows
+      100%       : Return to Top
+    */
+    @keyframes autoScrollKiosk {
+      0%, 30% {
+        transform: translateY(0);
+      }
+      50%, 80% {
+        transform: translateY(-40%); /* Adjust percentage if needed */
+      }
+      100% {
+        transform: translateY(0);
+      }
     }
 
     h1 {
+      display: block;
       font-size: 2.3vw;
-      margin: 0 0 8px 0;
+      margin-top: 0;
+      margin-bottom: 8px;
     }
     table {
       width: 100%;
@@ -48,10 +63,14 @@
       padding: 4px;
       text-align: left;
     }
+    tr {
+      font-weight: bold;
+    }
     tbody {
       font-size: 2.5vw;
     }
-
+    
+    /* Utility Classes */
     .bg-lightgray { background-color: lightgray; color: black; }
     .bg-white { background-color: white; color: black; }
     .bg-lightblue { background-color: lightblue; color: black; }
@@ -60,6 +79,7 @@
 </head>
 <body>
 
+  <!-- Wrapper element moved by CSS animation -->
   <div id="scroll-container">
     <h1>Downtown Station - Monday September 21, 2026 - 01:10PM</h1>
     
@@ -73,24 +93,114 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="bg-white"><th>5</th><td>Downtown</td><td>2nd @ Copper</td><th>3</th></tr>
-        <tr class="bg-lightblue text-blue"><th>5</th><td>Tramway &amp; Montgomery</td><td>A.T.C. (Bay G)</td><th>19</th></tr>
-        <tr class="bg-white"><th>8</th><td>Downtown</td><td>2nd @ Copper</td><th>12</th></tr>
-        <tr class="bg-lightblue"><th>11</th><td>Downtown</td><td>2nd @ Copper</td><th>12</th></tr>
-        <tr class="bg-white text-blue"><th>11</th><td>Tramway &amp; Copper</td><td>A.T.C. (Bay D)</td><th>Now</th></tr>
-        <tr class="bg-lightblue"><th>16</th><td>Broadway &amp; San Jose</td><td>2nd @ Copper</td><th>18</th></tr>
-        <tr class="bg-white"><th>16</th><td>Louisiana &amp; Gibson</td><td>Tijeras @ 2nd</td><th>10</th></tr>
-        <tr class="bg-lightblue"><th>50</th><td>Downtown</td><td>2nd @ Copper</td><th>6</th></tr>
-        <tr class="bg-white"><th>50</th><td>Airport Via Encino</td><td>Tijeras @ 2nd</td><th>25</th></tr>
-        <tr class="bg-lightblue"><th>50</th><td>Airport</td><td>Tijeras @ 2nd</td><th>Now</th></tr>
-        <tr class="bg-white text-blue"><th>53</th><td>Isleta &amp; I-25</td><td>A.T.C. (Bay F)</td><th>Now</th></tr>
-        <tr class="bg-lightblue text-blue"><th>54</th><td>Dennis Chavez &amp; 118th</td><td>A.T.C. (Bay B)</td><th>25</th></tr>
-        <tr class="bg-white text-blue"><th>66</th><td>Central &amp; Unser Transit Center</td><td>Central @ 1st (Across From A.T.C.)</td><th>12</th></tr>
-        <tr class="bg-lightblue text-blue"><th>66</th><td>Tramway &amp; Central</td><td>1st @ Central (ATC)</td><th>27</th></tr>
-        <tr class="bg-white"><th>766</th><td>Central &amp; Unser Transit Center</td><td>ART - Downtown</td><th>2</th></tr>
-        <tr class="bg-lightblue text-blue"><th>766</th><td>Uptown Transit Center</td><td>ART - A.T.C.</td><th>21</th></tr>
-        <tr class="bg-white text-blue"><th>777</th><td>Central &amp; Unser Transit Center</td><td>ART - Downtown</td><th>17</th></tr>
-        <tr class="bg-lightblue"><th>777</th><td>Tramway &amp; Central</td><td>ART - A.T.C.</td><th>4</th></tr>
+        <tr class="bg-white">
+          <th>5</th>
+          <td>Downtown</td>
+          <td>2nd @ Copper</td>
+          <th>3</th>
+        </tr>
+        <tr class="bg-lightblue text-blue">
+          <th>5</th>
+          <td>Tramway &amp; Montgomery</td>
+          <td>A.T.C.  (Bay G)</td>
+          <th>19</th>
+        </tr>
+        <tr class="bg-white">
+          <th>8</th>
+          <td>Downtown</td>
+          <td>2nd @ Copper</td>
+          <th>12</th>
+        </tr>
+        <tr class="bg-lightblue">
+          <th>11</th>
+          <td>Downtown</td>
+          <td>2nd @ Copper</td>
+          <th>12</th>
+        </tr>
+        <tr class="bg-white text-blue">
+          <th>11</th>
+          <td>Tramway &amp; Copper</td>
+          <td>A.T.C.  (Bay D)</td>
+          <th>Now</th>
+        </tr>
+        <tr class="bg-lightblue">
+          <th>16</th>
+          <td>Broadway &amp; San Jose</td>
+          <td>2nd @ Copper</td>
+          <th>18</th>
+        </tr>
+        <tr class="bg-white">
+          <th>16</th>
+          <td>Louisiana &amp; Gibson</td>
+          <td>Tijeras @ 2nd</td>
+          <th>10</th>
+        </tr>
+        <tr class="bg-lightblue">
+          <th>50</th>
+          <td>Downtown</td>
+          <td>2nd @ Copper</td>
+          <th>6</th>
+        </tr>
+        <tr class="bg-white">
+          <th>50</th>
+          <td>Airport Via Encino</td>
+          <td>Tijeras @ 2nd</td>
+          <th>25</th>
+        </tr>
+        <tr class="bg-lightblue">
+          <th>50</th>
+          <td>Airport</td>
+          <td>Tijeras @ 2nd</td>
+          <th>Now</th>
+        </tr>
+        <tr class="bg-white text-blue">
+          <th>53</th>
+          <td>Isleta &amp; I-25</td>
+          <td>A.T.C.  (Bay F)</td>
+          <th>Now</th>
+        </tr>
+        <tr class="bg-lightblue text-blue">
+          <th>54</th>
+          <td>Dennis Chavez &amp; 118th</td>
+          <td>A.T.C.  (Bay B)</td>
+          <th>25</th>
+        </tr>
+        <tr class="bg-white text-blue">
+          <th>66</th>
+          <td>Central &amp; Unser Transit Center</td>
+          <td>Central @ 1st (Across From A.T.C.)</td>
+          <th>12</th>
+        </tr>
+        <tr class="bg-lightblue text-blue">
+          <th>66</th>
+          <td>Tramway &amp; Central</td>
+          <td>1st @ Central (ATC)</td>
+          <th>27</th>
+        </tr>
+        <tr class="bg-white">
+          <th>766</th>
+          <td>Central &amp; Unser Transit Center</td>
+          <td>ART - Downtown  </td>
+          <th>2</th>
+        </tr>
+        <tr class="bg-lightblue text-blue">
+          <th>766</th>
+          <td>Uptown Transit Center</td>
+          <td>ART - A.T.C.</td>
+          <th>21</th>
+        </tr>
+        <tr class="bg-white text-blue">
+          <th>777</th>
+          <td>Central &amp; Unser Transit Center</td>
+          <td>ART - Downtown  </td>
+          <th>17</th>
+        </tr>
+        <tr class="bg-lightblue">
+          <th>777</th>
+          <td>Tramway &amp; Central</td>
+          <td>ART - A.T.C.</td>
+          <th>4</th>
+        </tr>
       </tbody>
     </table>
   </div>
