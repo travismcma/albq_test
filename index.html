@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="refresh" content="10">
+  <title>Transit Schedule Display</title>
   <style>
     body {
       background-color: #ffffff;
@@ -22,7 +22,7 @@
       border-collapse: collapse;
       font-size: 2.1vw;
       font-weight: bold;
-      background-color: black;
+      background-color: #000000;
     }
     th, td {
       padding: 4px;
@@ -37,7 +37,7 @@
       font-size: 2.5vw;
     }
     
-    /* Utility classes for colors */
+    /* Color Utility Classes */
     .bg-lightgray { background-color: lightgray; color: black; }
     .bg-white { background-color: white; color: black; }
     .bg-lightblue { background-color: lightblue; color: black; }
@@ -45,6 +45,7 @@
   </style>
 </head>
 <body>
+
   <h1>Downtown Station - Monday September 21, 2026 - 01:10PM</h1>
   
   <table>
@@ -66,7 +67,7 @@
       <tr class="bg-lightblue text-blue">
         <th>5</th>
         <td>Tramway &amp; Montgomery</td>
-        <td>A.T.C. (Bay G)</td>
+        <td>A.T.C.  (Bay G)</td>
         <th>19</th>
       </tr>
       <tr class="bg-white">
@@ -84,7 +85,7 @@
       <tr class="bg-white text-blue">
         <th>11</th>
         <td>Tramway &amp; Copper</td>
-        <td>A.T.C. (Bay D)</td>
+        <td>A.T.C.  (Bay D)</td>
         <th>Now</th>
       </tr>
       <tr class="bg-lightblue">
@@ -120,13 +121,13 @@
       <tr class="bg-white text-blue">
         <th>53</th>
         <td>Isleta &amp; I-25</td>
-        <td>A.T.C. (Bay F)</td>
+        <td>A.T.C.  (Bay F)</td>
         <th>Now</th>
       </tr>
       <tr class="bg-lightblue text-blue">
         <th>54</th>
         <td>Dennis Chavez &amp; 118th</td>
-        <td>A.T.C. (Bay B)</td>
+        <td>A.T.C.  (Bay B)</td>
         <th>25</th>
       </tr>
       <tr class="bg-white text-blue">
@@ -144,7 +145,7 @@
       <tr class="bg-white">
         <th>766</th>
         <td>Central &amp; Unser Transit Center</td>
-        <td>ART - Downtown</td>
+        <td>ART - Downtown  </td>
         <th>2</th>
       </tr>
       <tr class="bg-lightblue text-blue">
@@ -156,7 +157,7 @@
       <tr class="bg-white text-blue">
         <th>777</th>
         <td>Central &amp; Unser Transit Center</td>
-        <td>ART - Downtown</td>
+        <td>ART - Downtown  </td>
         <th>17</th>
       </tr>
       <tr class="bg-lightblue">
@@ -169,16 +170,29 @@
   </table>
 
   <script>
-    function autoScrollLoop(duration = 3000) {
+    function autoScrollLoop(duration = 4000) {
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      
+      // Scroll to bottom smoothly
       window.scrollTo({ top: maxScroll, behavior: 'smooth' });
+      
+      // Reset back near top after reaching bottom
       setTimeout(() => {
         window.scrollTo({ top: 10, behavior: 'auto' });
       }, duration);
     }
     
-    autoScrollLoop(6000);
-    setInterval(() => autoScrollLoop(3000), 12000);
+    // Initial scroll execution
+    autoScrollLoop(4000);
+    
+    // Repeat scrolling every 10 seconds
+    setInterval(() => autoScrollLoop(4000), 10000);
+
+    // Refresh page data every 60 seconds without interrupting intermediate scroll loops
+    setTimeout(() => {
+      window.location.reload();
+    }, 60000);
   </script>
+
 </body>
 </html>
